@@ -1,0 +1,99 @@
+<div class="flex h-screen bg-black">
+  <!-- Sidebar Navigation -->
+  <nav class="h-screen sticky top-0 w-64 bg-gray-900 border-r border-gray-800 hidden lg:block">
+    <div class="flex flex-col h-full">
+      <!-- Logo -->
+      <div class="p-6 border-b border-gray-800">
+        <a routerLink="/" class="text-2xl font-bold text-white hover:text-purple-400 transition-colors duration-300">CallTracker</a>
+      </div>
+
+      <!-- Navigation Links -->
+      <div class="flex-1 p-4">
+        <div class="space-y-2">
+          <a routerLink="/" routerLinkActive="bg-gray-800 text-white" [routerLinkActiveOptions]="{exact: true}" 
+             class="flex items-center px-4 py-2 text-gray-300 rounded-lg hover:bg-gray-700 transition-colors duration-200">
+            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                    d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+            </svg>
+            Dashboard
+          </a>
+          <a routerLink="/details" routerLinkActive="bg-gray-800 text-white"
+             class="flex items-center px-4 py-2 text-gray-300 rounded-lg hover:bg-gray-700 transition-colors duration-200">
+            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                    d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+            Details
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu Button -->
+  <div class="lg:hidden fixed top-4 right-4 z-50">
+    <button type="button" (click)="toggleMobileMenu()" 
+            class="p-2 rounded-lg bg-gray-900 border border-gray-800 text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-500">
+      <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path [attr.d]="isMobileMenuOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16'" 
+              stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Main Content Area -->
+  <main class="flex-1 overflow-y-auto bg-black">
+    <div class="p-6">
+      <div class="mb-6">
+        <h1 class="text-2xl font-bold text-white">Call Details</h1>
+        <p class="text-gray-400">Detailed view of all call records</p>
+      </div>
+
+      <!-- Table Section -->
+      <div class="bg-gray-900 rounded-lg shadow overflow-hidden border border-gray-800 transition-all duration-500 hover:shadow-xl hover:shadow-indigo-500/30 hover:border-indigo-500/50">
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-gray-800">
+            <thead class="bg-gray-800">
+              <tr>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider transition-colors duration-500 hover:bg-gray-700 hover:text-purple-300">ID</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider transition-colors duration-500 hover:bg-gray-700 hover:text-purple-300">Date</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider transition-colors duration-500 hover:bg-gray-700 hover:text-purple-300">Caller</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider transition-colors duration-500 hover:bg-gray-700 hover:text-purple-300">Duration</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider transition-colors duration-500 hover:bg-gray-700 hover:text-purple-300">Status</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider transition-colors duration-500 hover:bg-gray-700 hover:text-purple-300">Category</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider transition-colors duration-500 hover:bg-gray-700 hover:text-purple-300">Priority</th>
+              </tr>
+            </thead>
+            <tbody class="bg-gray-900 divide-y divide-gray-800">
+              <tr *ngFor="let call of callDetails" 
+                  class="transition-all duration-500 hover:bg-gray-800 hover:shadow-lg hover:shadow-indigo-500/20 group">
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300 group-hover:text-white transition-colors duration-500">{{call.id}}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300 group-hover:text-white transition-colors duration-500">{{call.date}}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white group-hover:text-indigo-400 transition-colors duration-500">{{call.caller}}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300 group-hover:text-white transition-colors duration-500">{{call.duration}}</td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span [class]="'px-2 inline-flex text-xs leading-5 font-semibold rounded-full transition-all duration-500 ' + 
+                    (call.status === 'Completed' ? 'bg-green-900 text-green-200 group-hover:bg-green-800 group-hover:shadow-purple-500/20' : 
+                     call.status === 'Failed' ? 'bg-red-900 text-red-200 group-hover:bg-red-800 group-hover:shadow-purple-500/20' : 
+                     'bg-yellow-900 text-yellow-200 group-hover:bg-yellow-800 group-hover:shadow-purple-500/20')">
+                    {{call.status}}
+                  </span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300 group-hover:text-white transition-colors duration-500">{{call.category}}</td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span [class]="'px-2 inline-flex text-xs leading-5 font-semibold rounded-full transition-all duration-500 ' + 
+                    (call.priority === 'High' ? 'bg-red-900 text-red-200 group-hover:bg-red-800 group-hover:shadow-purple-500/20' : 
+                     call.priority === 'Medium' ? 'bg-yellow-900 text-yellow-200 group-hover:bg-yellow-800 group-hover:shadow-purple-500/20' : 
+                     'bg-green-900 text-green-200 group-hover:bg-green-800 group-hover:shadow-purple-500/20')">
+                    {{call.priority}}
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
