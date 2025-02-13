@@ -56,37 +56,37 @@
           <table class="min-w-full divide-y divide-gray-800">
             <thead class="bg-gray-800">
               <tr>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider transition-colors duration-500 hover:bg-gray-700 hover:text-purple-300">ID</th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider transition-colors duration-500 hover:bg-gray-700 hover:text-purple-300">Date</th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider transition-colors duration-500 hover:bg-gray-700 hover:text-purple-300">Caller</th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider transition-colors duration-500 hover:bg-gray-700 hover:text-purple-300">Duration</th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider transition-colors duration-500 hover:bg-gray-700 hover:text-purple-300">Status</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider transition-colors duration-500 hover:bg-gray-700 hover:text-purple-300">Timestamp</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider transition-colors duration-500 hover:bg-gray-700 hover:text-purple-300">Caller ID</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider transition-colors duration-500 hover:bg-gray-700 hover:text-purple-300">Callee ID</th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider transition-colors duration-500 hover:bg-gray-700 hover:text-purple-300">Category</th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider transition-colors duration-500 hover:bg-gray-700 hover:text-purple-300">Priority</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider transition-colors duration-500 hover:bg-gray-700 hover:text-purple-300">Sub Issue</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider transition-colors duration-500 hover:bg-gray-700 hover:text-purple-300">Bridge Time</th>
               </tr>
             </thead>
             <tbody class="bg-gray-900 divide-y divide-gray-800">
               <tr *ngFor="let call of callDetails" 
                   class="transition-all duration-500 hover:bg-gray-800 hover:shadow-lg hover:shadow-indigo-500/20 group">
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300 group-hover:text-white transition-colors duration-500">{{call.id}}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300 group-hover:text-white transition-colors duration-500">{{call.date}}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white group-hover:text-indigo-400 transition-colors duration-500">{{call.caller}}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300 group-hover:text-white transition-colors duration-500">{{call.duration}}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300 group-hover:text-white transition-colors duration-500">{{call.timestamp}}</td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                  <span [class]="'px-2 inline-flex text-xs leading-5 font-semibold rounded-full transition-all duration-500 ' + 
-                    (call.status === 'Completed' ? 'bg-green-900 text-green-200 group-hover:bg-green-800 group-hover:shadow-purple-500/20' : 
-                     call.status === 'Failed' ? 'bg-red-900 text-red-200 group-hover:bg-red-800 group-hover:shadow-purple-500/20' : 
-                     'bg-yellow-900 text-yellow-200 group-hover:bg-yellow-800 group-hover:shadow-purple-500/20')">
-                    {{call.status}}
+                  <span class="px-2 py-1 text-sm font-medium rounded-lg bg-purple-900 text-purple-200">
+                    {{call.callerId}}
                   </span>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300 group-hover:text-white transition-colors duration-500">{{call.category}}</td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                  <span [class]="'px-2 inline-flex text-xs leading-5 font-semibold rounded-full transition-all duration-500 ' + 
-                    (call.priority === 'High' ? 'bg-red-900 text-red-200 group-hover:bg-red-800 group-hover:shadow-purple-500/20' : 
-                     call.priority === 'Medium' ? 'bg-yellow-900 text-yellow-200 group-hover:bg-yellow-800 group-hover:shadow-purple-500/20' : 
-                     'bg-green-900 text-green-200 group-hover:bg-green-800 group-hover:shadow-purple-500/20')">
-                    {{call.priority}}
+                  <span class="px-2 py-1 text-sm font-medium rounded-lg bg-indigo-900 text-indigo-200">
+                    {{call.calleeId}}
+                  </span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span class="px-2 py-1 text-sm font-medium rounded-lg bg-blue-900 text-blue-200">
+                    {{call.category}}
+                  </span>
+                </td>
+                <td class="px-6 py-4 text-sm text-gray-300 group-hover:text-white transition-colors duration-500">{{call.subIssue}}</td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span class="px-2 py-1 text-sm font-medium rounded-lg bg-green-900 text-green-200">
+                    {{call.bridgeTime}}
                   </span>
                 </td>
               </tr>
