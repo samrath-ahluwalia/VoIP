@@ -55,29 +55,71 @@
     <div class="p-6">
       <div class="mb-6">
         <h1 class="text-2xl font-bold text-white">Call Details</h1>
-        <p class="text-gray-400">Detailed view of all call records</p>
+        <p class="text-gray-400">Detailed analysis of call center performance</p>
       </div>
 
-      <!-- Table Section -->
+      <!-- Stats Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div *ngFor="let stat of stats" 
+             class="bg-gray-900 p-4 rounded-lg border border-gray-800 transition-all duration-500 hover:shadow-xl hover:shadow-indigo-500/30 hover:border-indigo-500/50 hover:-translate-y-1 hover:scale-[1.02] group">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm text-gray-400 group-hover:text-gray-300 transition-colors duration-300">{{stat.label}}</p>
+              <h3 class="text-2xl font-bold text-white group-hover:text-indigo-200 transition-colors duration-300">{{stat.value}}</h3>
+            </div>
+            <div [class]="stat.bgColor + ' p-3 rounded-lg bg-opacity-20 group-hover:bg-opacity-30 transition-all duration-300'">
+              <svg [class]="'w-6 h-6 ' + stat.iconColor" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="stat.icon"></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Call Volume Trend -->
+      <div class="bg-gray-900 p-4 rounded-lg border border-gray-800 transition-all duration-500 hover:shadow-xl hover:shadow-purple-500/30 hover:border-purple-500/50 hover:-translate-y-1 hover:scale-[1.01] group mb-6">
+        <h3 class="text-lg font-semibold text-white mb-4 group-hover:text-purple-400 transition-colors duration-500">Call Volume Trend</h3>
+        <div class="h-[350px]">
+          <apx-chart
+            #callVolumeChart
+            [series]="callVolumeOptions.series!"
+            [chart]="callVolumeOptions.chart!"
+            [xaxis]="callVolumeOptions.xaxis!"
+            [yaxis]="callVolumeOptions.yaxis!"
+            [dataLabels]="callVolumeOptions.dataLabels!"
+            [stroke]="callVolumeOptions.stroke!"
+            [tooltip]="callVolumeOptions.tooltip!"
+            [grid]="callVolumeOptions.grid!"
+            [theme]="callVolumeOptions.theme!"
+            [fill]="callVolumeOptions.fill!"
+          ></apx-chart>
+        </div>
+      </div>
+
+      <!-- Call Details Table -->
       <div class="bg-gray-900 rounded-lg shadow overflow-hidden border border-gray-800 transition-all duration-500 hover:shadow-xl hover:shadow-indigo-500/30 hover:border-indigo-500/50">
         <div class="overflow-x-auto">
           <table class="min-w-full divide-y divide-gray-800">
             <thead class="bg-gray-800">
               <tr>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider transition-colors duration-500 hover:bg-gray-700 hover:text-purple-300">Timestamp</th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider transition-colors duration-500 hover:bg-gray-700 hover:text-purple-300">Caller ID</th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider transition-colors duration-500 hover:bg-gray-700 hover:text-purple-300">Callee ID</th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider transition-colors duration-500 hover:bg-gray-700 hover:text-purple-300">Category</th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider transition-colors duration-500 hover:bg-gray-700 hover:text-purple-300">Sub Issue</th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider transition-colors duration-500 hover:bg-gray-700 hover:text-purple-300">Bridge Time</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Timestamp</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Caller ID</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Callee ID</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Category</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Sub Issue</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Bridge Time</th>
               </tr>
             </thead>
             <tbody class="bg-gray-900 divide-y divide-gray-800">
               <tr *ngFor="let call of callDetails" 
                   class="transition-all duration-500 hover:bg-gray-800 hover:shadow-lg hover:shadow-indigo-500/20 group">
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300 group-hover:text-white transition-colors duration-500">{{call.timestamp}}</td>
                 <td class="px-6 py-4 whitespace-nowrap">
                   <span class="px-2 py-1 text-sm font-medium rounded-lg bg-purple-900 text-purple-200">
+                    {{call.timestamp}}
+                  </span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span class="px-2 py-1 text-sm font-medium rounded-lg bg-blue-900 text-blue-200">
                     {{call.callerId}}
                   </span>
                 </td>
@@ -87,11 +129,13 @@
                   </span>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                  <span class="px-2 py-1 text-sm font-medium rounded-lg bg-blue-900 text-blue-200">
+                  <span class="px-2 py-1 text-sm font-medium rounded-lg bg-violet-900 text-violet-200">
                     {{call.category}}
                   </span>
                 </td>
-                <td class="px-6 py-4 text-sm text-gray-300 group-hover:text-white transition-colors duration-500">{{call.subIssue}}</td>
+                <td class="px-6 py-4 text-sm text-gray-300 group-hover:text-white transition-colors duration-500">
+                  {{call.subIssue}}
+                </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                   <span class="px-2 py-1 text-sm font-medium rounded-lg bg-green-900 text-green-200">
                     {{call.bridgeTime}}
