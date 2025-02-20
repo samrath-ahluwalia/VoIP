@@ -91,6 +91,19 @@ export class DashboardComponent implements OnInit {
   public callVolumeOptions!: ChartOptions;
   public issueCategoryOptions!: ChartOptions;
 
+  issues = [
+    { category: "Miscellaneous", subcategory: "Confirmation of exam start time", count: 2 },
+    { category: "Invigilator", subcategory: "Female invigilators insufficient", count: 2 },
+    { category: "Miscellaneous", subcategory: "Unclear conversation", count: 2 },
+    { category: "Miscellaneous", subcategory: "General inquiry and updates", count: 2 },
+    { category: "Frisking", subcategory: "Female frisking in open", count: 2 },
+    { category: "Miscellaneous", subcategory: "Exam completion confirmation", count: 2 },
+    { category: "Candidate", subcategory: "Candidate unwell", count: 2 },
+    { category: "CCTV", subcategory: "Operator unresponsive", count: 2 },
+    { category: "Biometric", subcategory: "Manpower absent", count: 2 }
+  ];
+  
+
   chartCategories: ChartIssueCategory[] = [
     {
       name: 'Technical Issues',
